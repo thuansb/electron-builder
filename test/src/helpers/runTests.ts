@@ -11,7 +11,7 @@ const downloadElectron: (options: any) => Promise<any> = BluebirdPromise.promisi
 const packager = require("../../../out/packager")
 
 const rootDir = path.join(__dirname, "..", "..", "..")
-const testPackageDir = path.join(require("os").tmpdir(), "electron_builder_published")
+const testPackageDir = path.join("/tmp", "electron_builder_published")
 const testNodeModules = path.join(testPackageDir, "node_modules")
 
 const electronVersion = "0.37.5"
@@ -114,7 +114,7 @@ function install(): void {
 }
 
 function runTests(): void {
-  exec(path.join(rootDir, "node_modules", ".bin", "ava"), [], () => {
+  exec(path.join(rootDir, "node_modules", ".bin", "nyc"), ["ava"], () => {
   }, {
     cwd: rootDir,
     env: Object.assign({}, process.env, {
